@@ -40,9 +40,9 @@ const httpVerifyUserUid = async (req, res) => {
 
 const httpPatchUserRoles = async (req, res) => {
   const userID = req.params.id;
+  const { roles } = req.body;
   const user = await httpGetFindUserById(userID);
-  user.bitgetRegistry.uid = null;
-  user.bitgetRegistry.verificationStage = "notReceived";
+  user.userRoles = roles;
 
   await user.save();
   return res.status(StatusCodes.OK).send({ msg: ReasonPhrases.OK });
